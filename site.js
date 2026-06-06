@@ -91,6 +91,10 @@
 
   function resize() {
     const rect = hero.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) {
+      requestAnimationFrame(resize);
+      return;
+    }
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = rect.width;
     h = rect.height;
@@ -239,6 +243,8 @@
     }, 150);
   });
 
-  resize();
-  requestAnimationFrame(frame);
+  window.addEventListener('load', () => {
+    resize();
+    requestAnimationFrame(frame);
+  });
 })();
