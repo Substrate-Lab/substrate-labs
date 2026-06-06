@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 56" width="372" height="56" role="img" aria-label="Substrate">
+  <!-- sprout mark -->
+  <g transform="translate(2,4) scale(1)" fill="#e8e5dc" stroke="#e8e5dc">
+    <path d="M 9 41 L 39 41" stroke="#e8e5dc" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+    <path d="M 24 41 L 24 22" stroke="#e8e5dc" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+    <path d="M 24 24 Q 13 19 9 8 Q 20 14 24 23 Z" fill="#e8e5dc" stroke="none"/>
+    <path d="M 24 22 Q 28 10 39 4 Q 35 16 24 24 Z" fill="#e8e5dc" stroke="none"/>
+  </g>
+  <!-- wordmark -->
+  <text x="60" y="42" font-family="'Newsreader','Iowan Old Style',Georgia,serif" font-size="40" font-weight="400" letter-spacing="-0.7" fill="#e8e5dc">Substrate<tspan fill="rgba(232,229,220,0.55)">.</tspan></text>
+</svg>
