@@ -337,6 +337,14 @@
     color: var(--muted);
     line-height: 1.5;
   }
+  .member .bio{
+    margin: 14px 0 0;
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 34ch;
+  }
 
   /* ── Founders ────────────────────────────────────────────────────── */
   .founders{
