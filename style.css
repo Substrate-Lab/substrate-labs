@@ -345,6 +345,24 @@
     color: var(--ink-2);
     max-width: 34ch;
   }
+  .member .links{
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .member .links a{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: var(--muted);
+    border: 1px solid var(--hair);
+    border-radius: 999px;
+    transition: color .2s, border-color .2s;
+  }
+  .member .links a:hover{ color: var(--ink); border-color: var(--ink); }
+  .member .links svg{ width: 13px; height: 13px; fill: currentColor; }
 
   /* ── Founders ────────────────────────────────────────────────────── */
   .founders{
