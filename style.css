@@ -289,11 +289,9 @@
      head is the section's only content). */
 
   /* ── Member grid (photo cards) ───────────────────────────────────── */
-  /* auto-fit: 4-up on wide screens, 3-up mid, 2-up narrow — no orphan
-     rows when the member count isn't a clean multiple of the column count */
   .member-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: clamp(28px, 3vw, 48px);
     margin-top: clamp(40px, 6vh, 72px);
   }
