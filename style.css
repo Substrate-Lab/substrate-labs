@@ -812,7 +812,9 @@
     .papers .list li{ grid-template-columns: 1fr; column-gap: 0; row-gap: 4px; }
     .papers .list .meta{ text-align: left; }
     .footer .row1{ grid-template-columns: 1fr 1fr; gap: 40px; }
-    .topbar nav{ display: none; }
+    /* keep nav visible on mobile; let it wrap below the logo on narrow screens */
+    .topbar .row{ flex-wrap: wrap; row-gap: 14px; }
+    .topbar nav{ gap: 18px; font-size: 12px; }
     .footer .wordmark{ font-size: 22vw; }
   }
 
