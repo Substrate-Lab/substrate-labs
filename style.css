@@ -471,7 +471,18 @@
     padding: clamp(48px, 7vh, 80px) 0 clamp(56px, 9vh, 96px);
     border-top: 1px solid var(--hair);
   }
-  .papers-section .eyebrow{ margin-bottom: 28px; }
+  .papers-title{
+    margin: 0 0 clamp(30px, 4.5vh, 44px);
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    letter-spacing: -0.018em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .paper-group{ margin-bottom: clamp(36px, 5.5vh, 56px); }
+  .paper-group:last-child{ margin-bottom: 0; }
+  .paper-group .eyebrow{ margin-bottom: 18px; }
   .paper-table{ width: 100%; border-collapse: collapse; }
   .paper-table thead th{
     text-align: left;
