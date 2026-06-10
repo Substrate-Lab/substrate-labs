@@ -466,12 +466,11 @@
   .profile .contact a:hover{ color: var(--ink); border-color: var(--ink); }
   .profile .contact svg{ width: 14px; height: 14px; fill: currentColor; }
 
-  /* ── Papers table ────────────────────────────────────────────────── */
+  /* ── Papers table (per-PI, on profile pages) ─────────────────────── */
   .papers-section{
-    padding: clamp(56px, 9vh, 96px) 0;
-    border-bottom: 1px solid var(--hair);
+    padding: clamp(48px, 7vh, 80px) 0 clamp(56px, 9vh, 96px);
+    border-top: 1px solid var(--hair);
   }
-  .papers-section:last-of-type{ border-bottom: 0; }
   .papers-section .eyebrow{ margin-bottom: 28px; }
   .paper-table{ width: 100%; border-collapse: collapse; }
   .paper-table thead th{
