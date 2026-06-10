@@ -345,27 +345,7 @@
     color: var(--ink-2);
     max-width: 34ch;
   }
-  .member .links{
-    display: flex;
-    gap: 14px;
-    margin-top: 16px;
-  }
-  .member .links a{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    color: var(--muted);
-    border: 1px solid var(--hair);
-    border-radius: 999px;
-    transition: color .2s, border-color .2s;
-  }
-  .member .links a:hover{ color: var(--ink); border-color: var(--ink); }
-  .member .links svg{ width: 13px; height: 13px; fill: currentColor; }
-
-  /* Clickable card: photo + name + role + bio link to the PI's page;
-     the social icons below stay as their own anchors (no nested <a>). */
+  /* Clickable card: the whole card links to the PI's page. */
   .member-link{ display: block; color: inherit; text-decoration: none; }
   .member-link .photo{ transition: border-color .2s; }
   .member-link:hover .photo{ border-color: var(--muted-2); }
