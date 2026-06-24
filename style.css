@@ -449,7 +449,7 @@
     transition: color .2s, border-color .2s;
   }
   .profile .tags a:hover{ color: var(--ink); border-color: var(--ink); }
-  .profile .contact{ display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .profile .contact{ display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 32px; }
   .profile .contact a{
     display: inline-flex;
     align-items: center;
@@ -537,7 +537,6 @@
     color: var(--muted);
     line-height: 1.45;
   }
-
   /* ── Origins ─────────────────────────────────────────────────────── */
   .origins{
     padding: clamp(80px, 12vh, 130px) 0;
