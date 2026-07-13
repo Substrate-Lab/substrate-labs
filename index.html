@@ -13,145 +13,177 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=13" />
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body data-screen-label="Substrate · home">
 
-  <!-- ── TOP NAV ───────────────────────────────────────────────────── -->
+  <!-- ── TOP NAV ────────────────────────────────────────────────────── -->
   <header class="topbar">
     <div class="container row">
-      <a href="/" class="mark" aria-label="Substrate, home"><img class="sprout" src="/logos/substrate-leaf-mark.png" alt="" /><span class="wordmark-text">Substrate<span class="dot">.</span></span></a>
+      <a href="#top" class="mark" aria-label="Substrate, home"><img class="sprout" src="/logos/substrate-leaf-mark.png" alt="" /><span class="wordmark-text">Substrate<span class="dot">.</span></span></a>
       <nav>
-        <a href="/research">Research</a>
-        <a href="/policy">Policy</a>
-        <a href="/team">Team</a>
-        <a href="/careers">Careers</a>
-        <a href="/contact">Contact</a>
+        <a href="#research">Research</a>
+        <a href="#policy">Policy</a>
+        <a href="#careers">Careers</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- ── HERO (per V3 wireframe) ────────────────────────────────────── -->
-  <section class="hero" data-screen-label="Hero">
+  <!-- ── OPENING: definition (centered) then manifesto ─────────────── -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="opening">
+        <div class="def" aria-label="Substrate, defined">
+          <h2 class="word">substrate</h2>
+          <div class="pron"><span class="ipa">/ˈsəbˌstrāt/</span> <span class="pos">noun.</span></div>
+          <p class="sense">An underlying substance or layer; in biology, the surface or material from which a living thing grows and draws nourishment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESEARCH ──────────────────────────────────────────────────── -->
+  <section class="section" id="research">
+    <div class="container">
+      <div class="head">
+        <div class="left">
+          <div class="eyebrow">Research</div>
+          <h2>What we <em>work on</em>.</h2>
+        </div>
+        <div class="right">
+          <h1 class="lede">We study the structure of <em>intelligence</em> in machines, in molecules, and in the systems that shape our world.</h1>
+        </div>
+      </div>
+      <div class="pillar-grid">
+        <article class="pillar">
+          <div class="n">Machines</div>
+          <h3><em>Alignment</em></h3>
+          <p>Closing the gap between what capable models are asked to do and what they actually do, and keeping it correctable.</p>
+        </article>
+        <article class="pillar">
+          <div class="n">Machines</div>
+          <h3><em>Interpretability</em></h3>
+          <p>Reverse-engineering the features and circuits behind model behavior, so internals can be checked, not assumed.</p>
+        </article>
+        <article class="pillar">
+          <div class="n">Molecules</div>
+          <h3><em>Biology</em></h3>
+          <p>Probabilistic methods for molecular systems, from nucleation pathways to the behavior of biological compounds.</p>
+        </article>
+        <article class="pillar">
+          <div class="n">Systems</div>
+          <h3><em>Societal</em></h3>
+          <p>How deployment and governance choices shape the real-world impact of capable AI.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORIGINS (rotating logos) ──────────────────────────────────── -->
+  <section class="origins">
     <div class="container">
       <div class="stack">
-        <div class="left tree-stage" aria-hidden="true"></div>
+        <div class="left">
+          <div class="eyebrow">Origins</div>
+          <h2 class="display">Where the team <em>comes from</em>.</h2>
+        </div>
         <div class="right">
-          <h1 class="hero-statement">We study the structure of <em>intelligence</em> in machines, in molecules, and in the systems that shape our world.</h1>
-          <p class="lede">
-            Substrate is an independent research lab. We work on the problems that matter most and are least understood.
-          </p>
-          <div class="actions">
-            <a href="/research" class="btn">Read the research <span class="arr">→</span></a>
-            <a href="/careers" class="btn ghost">Get involved</a>
+          <p class="lede">Our researchers have worked across:</p>
+        </div>
+      </div>
+    </div>
+    <div class="marquee" aria-label="Researcher origins">
+      <div class="track">
+        <div class="item"><div class="logo"><img src="/logos/critical-data.svg" alt="MIT Critical Data"></div></div>
+        <div class="item"><div class="logo"><img src="/logos/csail.svg" alt="MIT CSAIL"></div></div>
+        <div class="item"><div class="logo"><img src="/logos/berkeley.svg" alt="UC Berkeley"></div></div>
+        <div class="item"><div class="logo"><img src="/logos/bluedot.svg" alt="BlueDot"></div></div>
+        <div class="item"><div class="logo"><img src="/logos/yc.svg" alt="Y Combinator"></div></div>
+        <div class="item"><div class="logo"><img src="/logos/Hub.png" alt="HUB International"></div></div>
+        <div class="item"><div class="logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg" alt="Amazon"></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/critical-data.svg" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/csail.svg" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/berkeley.svg" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/bluedot.svg" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/yc.svg" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/Hub.png" alt=""></div></div>
+        <div class="item" aria-hidden="true"><div class="logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg" alt=""></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POLICY ────────────────────────────────────────────────────── -->
+  <section class="section" id="policy">
+    <div class="container">
+      <div class="head">
+        <div class="left">
+          <div class="eyebrow">Policy</div>
+          <h2>Shaping the <em>rules</em>.</h2>
+        </div>
+        <div class="right">
+          <p class="lede">We work with the bodies writing the rules for AI and security, at the state, federal, and international level. <span class="soon" style="margin-left:6px">To be released</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAREERS ───────────────────────────────────────────────────── -->
+  <section class="section" id="careers">
+    <div class="container">
+      <div class="head">
+        <div class="left">
+          <div class="eyebrow">Careers</div>
+          <h2>Work <em>with us</em>.</h2>
+        </div>
+        <div class="right">
+          <p class="lede">Contributors work alongside existing commitments. Credentials give context; we care most about reasoning on open problems.</p>
+        </div>
+      </div>
+      <ul class="roles">
+        <li class="role-item">
+          <span class="area">Research</span>
+          <div><h3><em>Researcher</em></h3><p>Lead an independent research thread, from question through to publication.</p></div>
+          <div class="meta"><span>Remote-friendly</span><span>Volunteer · Flexible</span></div>
+          <a href="mailto:peterli@substrate-labs.org?subject=Researcher" class="apply">Apply →</a>
+        </li>
+        <li class="role-item">
+          <span class="area">Research</span>
+          <div><h3>Research <em>Assistant</em></h3><p>Support projects across experiments, analysis, and manuscript prep.</p></div>
+          <div class="meta"><span>Remote-friendly</span><span>Volunteer · Flexible</span></div>
+          <a href="mailto:peterli@substrate-labs.org?subject=Research%20Assistant" class="apply">Apply →</a>
+        </li>
+        <li class="role-item">
+          <span class="area">Comms</span>
+          <div><h3><em>Communications</em></h3><p>Communicate the research to technical and general audiences.</p></div>
+          <div class="meta"><span>Remote-friendly</span><span>Volunteer · Flexible</span></div>
+          <a href="mailto:peterli@substrate-labs.org?subject=Communications" class="apply">Apply →</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── CONTACT (+ support) ───────────────────────────────────────── -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="head">
+        <div class="left">
+          <div class="eyebrow">Contact</div>
+          <h2>Get in <em>touch</em>.</h2>
+        </div>
+        <div class="right">
+          <p class="lede">Independent and volunteer-run. One address for everything, press, partnerships, positions, and support (compute, grants, infrastructure, advisory time).</p>
+          <div class="actions" style="margin-top:24px;">
+            <a href="mailto:peterli@substrate-labs.org" class="btn">peterli@substrate-labs.org <span class="arr">→</span></a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── RESEARCH AREAS / 4 CARDS ───────────────────────────────────── -->
-  <section class="pillars" data-screen-label="Research areas">
-    <article class="pillar">
-      <div class="n">Machines</div>
-      <h3><em>Alignment</em></h3>
-      <p>Closing the gap between what capable models are asked to do and what they actually do, and keeping that gap correctable.</p>
-      <a href="/research#alignment" class="more">Read more →</a>
-    </article>
-    <article class="pillar">
-      <div class="n">Machines</div>
-      <h3><em>Interpretability</em></h3>
-      <p>Reverse-engineering the features, circuits, and reasoning paths behind model behavior, so internals can be checked, not assumed.</p>
-      <a href="/research#interpretability" class="more">Read more →</a>
-    </article>
-    <article class="pillar">
-      <div class="n">Molecules</div>
-      <h3><em>Biology</em></h3>
-      <p>Applying probabilistic methods to molecular systems, from nucleation pathway modeling to the structural behavior of biological compounds.</p>
-      <a href="/research#biology" class="more">Read more →</a>
-    </article>
-    <article class="pillar">
-      <div class="n">Systems</div>
-      <h3><em>Societal</em></h3>
-      <p>How deployment decisions and governance choices shape the real-world impact of capable AI systems.</p>
-      <a href="/research#societal" class="more">Read more →</a>
-    </article>
-  </section>
-
-  <!-- ── ORIGINS ───────────────────────────────────────────────────── -->
-  <section class="origins" data-screen-label="Origins">
-    <div class="container">
-      <div class="stack">
-        <div class="left">
-          <div class="eyebrow">Origins · 001</div>
-          <h2 class="display">Where the team <em>comes from</em>.</h2>
-        </div>
-        <div class="right">
-          <p class="lede">
-            Our researchers have worked across:
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="marquee" aria-label="Researcher origins">
-      <div class="track">
-        <div class="item"><div class="logo"><img src="/logos/critical-data.svg" alt="MIT Critical Data"></div><div class="label">MIT Critical Data</div></div>
-        <div class="item"><div class="logo"><img src="/logos/csail.svg" alt="MIT CSAIL"></div><div class="label">MIT CSAIL</div></div>
-        <div class="item"><div class="logo"><img src="/logos/berkeley.svg" alt="UC Berkeley"></div><div class="label">UC Berkeley</div></div>
-        <div class="item"><div class="logo"><img src="/logos/bluedot.svg" alt="Bluedot"></div><div class="label">Bluedot</div></div>
-        <div class="item keep-color"><div class="logo"><img src="/logos/yc.svg" alt="Y Combinator"></div><div class="label">Y Combinator</div></div>
-        <div class="item"><div class="logo"><img src="/logos/Hub.png" alt="HUB International"></div><div class="label">HUB International</div></div>
-        <div class="item"><div class="logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg" alt="Amazon"></div><div class="label">Amazon</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/critical-data.svg" alt=""></div><div class="label">MIT Critical Data</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/csail.svg" alt=""></div><div class="label">MIT CSAIL</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/berkeley.svg" alt=""></div><div class="label">UC Berkeley</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/bluedot.svg" alt=""></div><div class="label">Bluedot</div></div>
-        <div class="item keep-color" aria-hidden="true"><div class="logo"><img src="/logos/yc.svg" alt=""></div><div class="label">Y Combinator</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/Hub.png" alt=""></div><div class="label">HUB International</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg" alt=""></div><div class="label">Amazon</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/critical-data.svg" alt=""></div><div class="label">MIT Critical Data</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/csail.svg" alt=""></div><div class="label">MIT CSAIL</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/berkeley.svg" alt=""></div><div class="label">UC Berkeley</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/bluedot.svg" alt=""></div><div class="label">Bluedot</div></div>
-        <div class="item keep-color" aria-hidden="true"><div class="logo"><img src="/logos/yc.svg" alt=""></div><div class="label">Y Combinator</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="/logos/Hub.png" alt=""></div><div class="label">HUB International</div></div>
-        <div class="item" aria-hidden="true"><div class="logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg" alt=""></div><div class="label">Amazon</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── RECOGNITION · parked for now; re-enable by removing the <!==  ==> wrapper below ── -->
-  <!--
-  <section class="recognition" data-screen-label="Recognition">
-    <div class="container">
-      <div class="stack">
-        <div class="left">
-          <div class="eyebrow">Recognition · 002</div>
-          <h2 class="display">Where the work <em>lands</em>.</h2>
-        </div>
-        <div class="right">
-          <p class="lede">Accepted for publication, and entered into the public record.</p>
-        </div>
-      </div>
-      <ul class="accepts">
-        <li class="accept">
-          <div class="venue">ICML 2026</div>
-          <div class="what">Physics-informed neural operator for mean-field-game equilibria (PI-LNO).</div>
-          <div class="status">Accepted · SPIGM Workshop</div>
-        </li>
-        <li class="accept">
-          <div class="venue">Colorado Attorney General</div>
-          <div class="what">Comment on the Automated Decision-Making Technology Act (SB 26-189) and the Chatbot Safety Act (HB 26-1263).</div>
-          <div class="status">Pre-rulemaking record</div>
-        </li>
-      </ul>
-    </div>
-  </section>
-  -->
-
   <!-- ── FOOTER ────────────────────────────────────────────────────── -->
-  <footer class="footer" data-screen-label="Footer">
+  <footer class="footer">
     <div class="container">
       <div class="row1">
         <div class="brand">
@@ -160,20 +192,19 @@
         <div class="col">
           <h4>Research</h4>
           <ul>
-            <li><a href="/research#alignment">Alignment</a></li>
-            <li><a href="/research#interpretability">Interpretability</a></li>
-            <li><a href="/research#biology">Biology</a></li>
-            <li><a href="/research#societal">Societal</a></li>
+            <li><a href="#research">Alignment</a></li>
+            <li><a href="#research">Interpretability</a></li>
+            <li><a href="#research">Biology</a></li>
+            <li><a href="#research">Societal</a></li>
           </ul>
         </div>
         <div class="col">
           <h4>Lab</h4>
           <ul>
             <li><a href="/team">Team</a></li>
-            <li><a href="/careers">Careers</a></li>
-            <li><a href="/policy">Policy</a></li>
-            <li><a href="/support">Support</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#policy">Policy</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         <div class="col">
@@ -191,11 +222,11 @@
       </div>
 
       <div class="meta-row">
-        <span>© SUBSTRATE FOUNDATION · substrate-labs.org</span>
+        <span>© 2026 Substrate Foundation. All rights reserved.</span>
+        <span class="legal"><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a> · substrate-labs.org</span>
       </div>
     </div>
   </footer>
 
-  <script src="/site.js" defer></script>
 </body>
 </html>
