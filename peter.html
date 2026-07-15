@@ -14,6 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css?v=13" />
+<style>
+  /* Detail on the left, photo in the right-hand space */
+  .profile .stack{grid-template-columns:1fr 260px}
+  .profile .detail{order:1}
+  .profile .photo{order:2}
+  .paper-table td.p-status{text-align:right;width:1%;white-space:nowrap}
+  .paper-table .p-note{display:block;margin-top:5px;font-size:.92rem;color:var(--muted);max-width:54ch}
+  @media (max-width:640px){ .paper-table td.p-status{text-align:left} }
+</style>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body data-screen-label="Substrate · Anqi Peter Li">
@@ -64,52 +73,23 @@
       </div>
 
       <div class="papers-section">
-        <h2 class="papers-title">Papers</h2>
-
-        <div class="paper-group">
-          <div class="eyebrow">Published &amp; accepted</div>
-          <table class="paper-table">
-            <thead>
-              <tr>
-                <th>Paper</th>
-                <th>Short description</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-title">PI-LNO</td>
-                <td class="p-desc">Solving the high-dimensional equilibrium models at the heart of modern macroeconomics.</td>
-                <td class="p-status">Accepted · ICML 2026 SPIGM</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="paper-group">
-          <div class="eyebrow">In progress &amp; ideas</div>
-          <table class="paper-table">
-            <thead>
-              <tr>
-                <th>Paper</th>
-                <th>Short description</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-title">Ask Before You Answer</td>
-                <td class="p-desc">On when a model should abstain rather than answer.</td>
-                <td class="p-status">Under review · NeurIPS</td>
-              </tr>
-              <tr>
-                <td class="p-title">PI-LNO follow-up</td>
-                <td class="p-desc">Extending PI-LNO to longer horizons and broader settings.</td>
-                <td class="p-status">In submission · AAAI, ICLR</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h2 class="papers-title">Research</h2>
+        <table class="paper-table">
+          <tbody>
+            <tr>
+              <td class="p-title">PI-LNO<span class="p-note">Solving the high-dimensional equilibrium models at the heart of modern macroeconomics.</span></td>
+              <td class="p-status">Accepted · ICML 2026 SPIGM</td>
+            </tr>
+            <tr>
+              <td class="p-title">Ask Before You Answer<span class="p-note">On when a model should abstain rather than answer.</span></td>
+              <td class="p-status">Under review · NeurIPS</td>
+            </tr>
+            <tr>
+              <td class="p-title">PI-LNO follow-up<span class="p-note">Extending PI-LNO to longer horizons and broader settings.</span></td>
+              <td class="p-status">In submission · AAAI, ICLR</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -132,7 +112,7 @@
         <div class="col">
           <h4>Lab</h4>
           <ul>
-            <li><a href="/team">Team</a></li>
+            <li><a href="/#team">Team</a></li>
             <li><a href="/careers">Careers</a></li>
             <li><a href="/policy">Policy</a></li>
             <li><a href="/support">Support</a></li>

@@ -14,6 +14,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css?v=13" />
+<style>
+  /* Roster — grouped by role. PIs link to profile pages; others are static rows. */
+  .group{margin-top:52px}
+  .group .eyebrow{margin-bottom:10px}
+  .roster{border-top:1px solid var(--rule)}
+  .person{
+    display:flex;align-items:baseline;gap:24px;
+    padding:24px 2px;border-bottom:1px solid var(--rule);
+  }
+  .person .p-name{font-family:var(--serif);font-size:1.5rem;line-height:1.1;color:var(--ink);flex:1 1 auto}
+  .person .p-role{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:var(--muted);text-align:right}
+  .person .p-arrow{font-family:var(--mono);font-size:1rem;color:var(--faint);flex:none;transition:.15s}
+  a.person:hover .p-name{text-decoration:underline;text-underline-offset:3px}
+  a.person:hover .p-arrow{color:var(--ink);transform:translateX(3px)}
+  .roster .empty{padding:22px 2px;border-bottom:1px solid var(--rule);color:var(--faint);font-family:var(--serif);font-style:italic;font-size:1.05rem}
+  @media (max-width:640px){
+    .person{flex-wrap:wrap;gap:4px 24px}
+    .person .p-name{flex:1 1 100%;order:1}
+    .person .p-role{order:3;text-align:left;flex:1 1 100%}
+    .person .p-arrow{order:2;margin-left:auto}
+  }
+</style>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body data-screen-label="Substrate · team">
@@ -50,49 +72,69 @@
     <div class="container">
       <div class="head">
         <div class="left">
-          <div class="eyebrow">People · 01</div>
+          <div class="eyebrow">People</div>
           <h2>The <em>collective</em>.</h2>
         </div>
         <div class="right">
           <p class="lede">
-            The researchers and engineers behind the work.
+            The people behind the work, grouped by role. Principal investigators keep full profiles; select a name to read more.
           </p>
         </div>
       </div>
 
-      <div class="member-grid">
-        <div class="member">
-          <a class="member-link" href="/peter">
-            <div class="photo">
-              <img src="/team/anqi.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-              <span class="mono" style="display:none">AL</span>
-            </div>
-            <div class="name">Anqi Peter Li</div>
-            <div class="role">Co-founder · PI, Alignment &amp; Societal</div>
-            <p class="bio">Previously at HUB International and Mangusta Capital. Researcher at MIT Critical Data, working on AI alignment and societal impact. Accepted at the ICML 2026 SPIGM workshop, with a NeurIPS submission under review.</p>
+      <!-- ── Principal Investigators — link to full profile pages ─────── -->
+      <div class="group">
+        <div class="eyebrow">Principal Investigators</div>
+        <div class="roster">
+          <a class="person" href="/peter">
+            <span class="p-name">Anqi Peter Li</span>
+            <span class="p-role">Co-founder · PI, Alignment &amp; Societal</span>
+            <span class="p-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="person" href="/kundana">
+            <span class="p-name">Kundana Kommini</span>
+            <span class="p-role">Co-founder · PI, Interpretability &amp; Biology</span>
+            <span class="p-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="person" href="/ethan">
+            <span class="p-name">Ethan Yip</span>
+            <span class="p-role">Co-founder · PI, Interpretability &amp; Societal</span>
+            <span class="p-arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
-        <div class="member">
-          <a class="member-link" href="/kundana">
-            <div class="photo">
-              <img src="/team/kundana.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-              <span class="mono" style="display:none">KK</span>
-            </div>
-            <div class="name">Kundana Kommini</div>
-            <div class="role">Co-founder · PI, Interpretability &amp; Biology</div>
-            <p class="bio">ISEF Grand and Special Award winner in Robotics and Intelligent Machines. Former researcher at MIT CSAIL, working on mechanistic interpretability.</p>
-          </a>
+      </div>
+
+      <!-- ── Researchers — name + role, no profile page ───────────────── -->
+      <div class="group">
+        <div class="eyebrow">Researchers</div>
+        <div class="roster">
+          <div class="person">
+            <span class="p-name">Siddharth Shukla</span>
+            <span class="p-role">Researcher</span>
+          </div>
+          <!-- Add one row per researcher:
+          <div class="person">
+            <span class="p-name">Full Name</span>
+            <span class="p-role">Researcher · Focus area</span>
+          </div>
+          -->
         </div>
-        <div class="member">
-          <a class="member-link" href="/ethan">
-            <div class="photo">
-              <img src="/team/ethan.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-              <span class="mono" style="display:none">EY</span>
-            </div>
-            <div class="name">Ethan Yip</div>
-            <div class="role">Co-founder · PI, Interpretability &amp; Societal</div>
-            <p class="bio">Director of HTSI Global, working on mechanistic interpretability. Previously at AWS and Y Combinator ecosystem; serves on various delegations to the United Nations.</p>
-          </a>
+      </div>
+
+      <!-- ── Visiting Researchers — name + home institution, no profile page ─ -->
+      <div class="group">
+        <div class="eyebrow">Visiting Researchers</div>
+        <div class="roster">
+          <div class="person">
+            <span class="p-name">Leo Chen</span>
+            <span class="p-role">Vanderbilt University</span>
+          </div>
+          <!-- Add one row per visiting researcher:
+          <div class="person">
+            <span class="p-name">Full Name</span>
+            <span class="p-role">Home institution</span>
+          </div>
+          -->
         </div>
       </div>
     </div>
@@ -117,7 +159,7 @@
         <div class="col">
           <h4>Lab</h4>
           <ul>
-            <li><a href="/team">Team</a></li>
+            <li><a href="/#team">Team</a></li>
             <li><a href="/#careers">Careers</a></li>
             <li><a href="/#policy">Policy</a></li>
             <li><a href="/#contact">Contact</a></li>

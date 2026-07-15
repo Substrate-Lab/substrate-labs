@@ -14,6 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css?v=13" />
+<style>
+  /* Detail on the left, photo in the right-hand space */
+  .profile .stack{grid-template-columns:1fr 260px}
+  .profile .detail{order:1}
+  .profile .photo{order:2}
+  .paper-table td.p-status{text-align:right;width:1%;white-space:nowrap}
+  .paper-table .p-note{display:block;margin-top:5px;font-size:.92rem;color:var(--muted);max-width:54ch}
+  @media (max-width:640px){ .paper-table td.p-status{text-align:left} }
+</style>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body data-screen-label="Substrate · Ethan Yip">
@@ -42,8 +51,7 @@
         <div class="detail">
           <div class="role">Co-founder · PI, Interpretability &amp; Societal</div>
           <h1>Ethan Yip</h1>
-          <p class="bio">Director of HTSI Global, working on mechanistic interpretability. Previously at AWS and Y Combinator ecosystem; serves on various delegations to the United Nations.</p>
-          <p class="bio">Backs and mentors founders across Asia, Africa, LATAM, and North America through HTSI Global and the United Nations. Sources early-stage AI deals at LvlUp Ventures. Joining Amazon Web Services for Machine Learning. Research on mechanistic interpretability and the geometry of LLM reasoning.</p>
+          <p class="bio">Director of HTSI Global. Previously at AWS and in the Y Combinator ecosystem, and serves on delegations to the United Nations. His research is on mechanistic interpretability and the geometry of LLM reasoning.</p>
           <div class="areas">
             <h2>Focus areas</h2>
             <div class="tags">
@@ -66,35 +74,22 @@
 
       <div class="papers-section">
         <h2 class="papers-title">Research</h2>
-        <div class="paper-group">
-          <table class="paper-table">
-            <thead>
-              <tr>
-                <th>Paper</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-title">
-                  PRISM: Predicting and Repairing Instability in SAE Manifolds
-                  <div class="p-authors">Primary Author</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-title">
-                  Shadow: Geometric Characterization of LLM Reasoning Manifolds
-                  <div class="p-authors">Coauthor</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-title">
-                  Temporal Aggregation for Transformer-Based Depression Detection
-                  <div class="p-authors">Primary Author</div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="paper-table">
+          <tbody>
+            <tr>
+              <td class="p-title">PRISM: Predicting and Repairing Instability in SAE Manifolds</td>
+              <td class="p-status">Primary Author</td>
+            </tr>
+            <tr>
+              <td class="p-title">Shadow: Geometric Characterization of LLM Reasoning Manifolds</td>
+              <td class="p-status">Coauthor</td>
+            </tr>
+            <tr>
+              <td class="p-title">Temporal Aggregation for Transformer-Based Depression Detection</td>
+              <td class="p-status">Primary Author</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -117,7 +112,7 @@
         <div class="col">
           <h4>Lab</h4>
           <ul>
-            <li><a href="/team">Team</a></li>
+            <li><a href="/#team">Team</a></li>
             <li><a href="/careers">Careers</a></li>
             <li><a href="/policy">Policy</a></li>
             <li><a href="/support">Support</a></li>
