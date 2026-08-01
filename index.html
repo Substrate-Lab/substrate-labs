@@ -32,6 +32,18 @@
     #team .person .p-role{order:3;text-align:left;flex:1 1 100%}
     #team .person .p-arrow{order:2;margin-left:auto}
   }
+  /* Policy — more compact than the shared .role-item defaults */
+  #policy .paper-group{margin-bottom:16px}
+  #policy .paper-group .eyebrow{margin-bottom:6px}
+  #policy .role-item{grid-template-columns:96px 1fr 120px auto;gap:18px;padding:10px 0}
+  #policy .role-item h3{font-size:1rem;margin-bottom:2px}
+  #policy .role-item p{font-size:.83rem;line-height:1.4;max-width:78ch}
+  #policy .role-item .area{font-size:.62rem}
+  #policy .role-item .meta{font-size:.64rem}
+  #policy .role-item .apply{font-size:.68rem;padding:5px 12px}
+  @media (max-width:640px){
+    #policy .role-item{grid-template-columns:1fr;gap:8px;padding:16px 0}
+  }
 </style>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
