@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" fill="none">
-  <!-- MIT mark (from criticaldata.mit.edu), kept in brand colors; the marquee
-       filter recolors it to cream. MIT bars + "Critical Data" is the lab's lockup. -->
+  <!-- Legacy MIT mark retained for compatibility with older page versions. -->
   <g transform="translate(40,20)" stroke-width="35">
     <path stroke="#8A8B8C" d="M17.5 0v166m57-166v113m57-113v166m57-166v33m58 20v113"/>
     <path stroke="#A31F34" d="M188.5 53v113"/>
