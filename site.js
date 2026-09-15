@@ -97,8 +97,8 @@
         float pitch = 0.18 * cos(time * 0.21) + (u_pointer.y - 0.5) * 0.24;
         float roll = 0.055 * sin(time * 0.18) + (u_pointer.x - 0.5) * 0.055;
         p.xz = rotate2d(yaw) * p.xz;
-        p.xy = rotate2d(pitch) * p.xy;
-        p.yz = rotate2d(roll) * p.yz;
+        p.yz = rotate2d(pitch) * p.yz;
+        p.xy = rotate2d(roll) * p.xy;
         return p;
       }
 
