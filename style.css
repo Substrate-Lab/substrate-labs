@@ -1,7 +1,8 @@
 /* ============================================================
    Substrate Labs — quiet research editorial
    Newsreader display type, IBM Plex body type, restrained green,
-   and a precise rule system for a calm, legible lab presence.
+   a precise rule system for a calm, legible lab presence, and one
+   restrained motion language that gives the page a pulse.
    ============================================================ */
 
 :root{
@@ -83,12 +84,23 @@ nav a.active{color:var(--ink)}
 .field-canvas{display:none}   /* dark-theme hero animation, retired in the light redesign */
 
 .opening{max-width:820px;margin:0 auto;text-align:center}
-.opening .def{margin-bottom:0}
+.opening .def{margin-bottom:0;position:relative}
 .opening .word{font-family:var(--serif);font-weight:400;font-size:clamp(3.6rem,8vw,6.2rem);line-height:.94;letter-spacing:-.045em}
 .opening .pron{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--faint);margin-top:18px}
 .opening .pron .pos{font-style:normal}
 .opening .sense{font-family:var(--serif);font-size:clamp(1.02rem,1.6vw,1.18rem);color:var(--muted);max-width:50ch;margin:22px auto 0;line-height:1.55}
-.opening .def::after{content:"";display:block;width:42px;height:2px;background:var(--accent);margin:38px auto 0}
+.opening .def::before{
+  content:"";position:absolute;left:50%;bottom:-2px;width:5px;height:5px;border-radius:50%;
+  background:var(--accent);opacity:0;transform:translateX(-42px);
+  animation:signal-sweep 5.5s cubic-bezier(.45,0,.55,1) infinite;
+}
+.opening .def::after{content:"";display:block;width:84px;height:1px;background:var(--rule);margin:38px auto 0}
+@keyframes signal-sweep{
+  0%{opacity:0;transform:translateX(-42px)}
+  10%,88%{opacity:1}
+  50%{opacity:1;transform:translateX(42px)}
+  100%{opacity:0;transform:translateX(-42px)}
+}
 .opening .hero-statement{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.14;letter-spacing:-.015em;max-width:24ch;margin:0 auto}
 .opening .lede{max-width:52ch;margin:22px auto 0}
 .opening .actions{justify-content:center;margin-top:30px}
@@ -154,13 +166,14 @@ nav a.active{color:var(--ink)}
 .marquee{
   margin-top:42px;overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
 }
-.track{display:flex;align-items:center;justify-content:space-between;gap:30px;width:auto;padding:22px 44px}
-.item{display:flex;align-items:center;padding:0;flex:0 1 auto}
-.item[aria-hidden="true"]{display:none}
+.track{display:flex;align-items:center;gap:24px;width:max-content;padding:22px 16px;animation:origin-drift 48s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.item{display:flex;align-items:center;padding:0 28px;flex:0 0 auto}
 .item .logo{height:30px;display:flex;align-items:center}
 .item .logo img{height:100%;width:auto;object-fit:contain;filter:grayscale(1);opacity:.58;transition:opacity .2s}
 .item:hover .logo img{opacity:.9}
 .item .label{display:none}
+@keyframes origin-drift{from{transform:translateX(0)}to{transform:translateX(-50%)} }
 
 /* ── GENERIC PAGE HEAD (subpages) ────────────────────────── */
 .page-head{padding:clamp(68px,10vh,118px) 0 clamp(30px,5vh,58px)}
@@ -358,9 +371,15 @@ nav a.active{color:var(--ink)}
   .topbar .row{height:auto;padding-top:14px;padding-bottom:14px;gap:12px;flex-wrap:wrap}
   .topbar nav{width:100%;justify-content:space-between;gap:8px;order:2}
   .topbar nav a{font-size:.72rem}
-  .track{justify-content:flex-start;overflow-x:auto;padding:20px 28px;gap:28px}
+  .track{justify-content:flex-start;overflow-x:auto;padding:20px 28px;gap:28px;animation:none}
+  .item[aria-hidden="true"]{display:none}
   .item{flex:0 0 auto}
   .pillar-grid{grid-template-columns:1fr}
   .container{padding:0 22px}
   .row1{grid-template-columns:1fr;gap:32px}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening .def::before{animation:none;opacity:0}
+  .track{animation:none;flex-wrap:wrap;width:auto;justify-content:flex-start;gap:18px 30px;padding-left:44px;padding-right:44px}
+  .item[aria-hidden="true"]{display:none}
 }
