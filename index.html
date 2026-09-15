@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css?v=15" />
+<link rel="stylesheet" href="style.css?v=17" />
 <style>
   /* Team roster — grouped by role. Researchers with profiles link through; others are static rows. */
   #team .group{margin-top:52px}
@@ -64,15 +64,27 @@
     </div>
   </header>
 
-  <!-- ── OPENING: definition (centered) then manifesto ─────────────── -->
+  <!-- ── HERO: a typographic statement + a living research field ──── -->
   <section class="hero" id="top">
-    <div class="container">
-      <div class="opening">
-        <div class="def" aria-label="Substrate, defined">
-          <h2 class="word">substrate</h2>
-          <div class="pron"><span class="ipa">/ˈsəbˌstrāt/</span> <span class="pos">noun.</span></div>
-          <p class="sense">An underlying substance or layer; in biology, the surface or material from which a living thing grows and draws nourishment.</p>
-        </div>
+    <div class="container hero-stage">
+      <div class="hero-kicker">
+        <span class="eyebrow">Independent research lab</span>
+        <span class="hero-count">01 / 04</span>
+      </div>
+
+      <h1 class="hero-type" aria-label="The structure of intelligence">
+        <span class="type-lockup type-left"><span>the</span><span>structure</span></span>
+        <span class="type-lockup type-center">of</span>
+        <span class="type-lockup type-right">intelligence</span>
+      </h1>
+
+      <div class="hero-field" aria-hidden="true">
+        <canvas class="field-canvas" id="field-canvas"></canvas>
+      </div>
+
+      <div class="hero-notes">
+        <p>Substrate is an independent research lab<br />studying the structure of intelligence.</p>
+        <p>Machines, molecules, and the systems that shape our world.<br /><a href="#research">Explore the research <span class="arr">&rarr;</span></a></p>
       </div>
     </div>
   </section>
@@ -356,6 +368,8 @@
       </div>
     </div>
   </footer>
+
+  <script src="/site.js" defer></script>
 
 </body>
 </html>
