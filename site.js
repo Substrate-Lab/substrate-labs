@@ -94,19 +94,21 @@
 
       vec3 rotateObject(vec3 p, float time) {
         float yaw = 0.16 * sin(time * 0.26) + (u_pointer.x - 0.5) * 0.22;
-        float pitch = 0.10 * cos(time * 0.21) + (u_pointer.y - 0.5) * 0.12;
+        float pitch = 0.18 * cos(time * 0.21) + (u_pointer.y - 0.5) * 0.24;
+        float roll = 0.055 * sin(time * 0.18) + (u_pointer.x - 0.5) * 0.055;
         p.xz = rotate2d(yaw) * p.xz;
         p.xy = rotate2d(pitch) * p.xy;
+        p.yz = rotate2d(roll) * p.yz;
         return p;
       }
 
       float scene(vec3 point, float time) {
         vec3 p = rotateObject(point, time);
-        vec2 tube = vec2(length(p.xy) - 0.48, p.z);
-        float radius = length(tube) - 0.13;
+        vec2 tube = vec2(length(p.xy) - 0.47, p.z);
+        float radius = length(tube) - 0.125;
         float broad = fbm3(p * 2.8 + vec3(time * 0.045, -time * 0.03, time * 0.035));
-        float fold = 0.024 * sin(p.y * 19.0 + p.x * 4.0 + time * 0.18);
-        fold += 0.018 * sin(p.z * 24.0 - p.y * 7.0 - time * 0.23);
+        float fold = 0.014 * sin(p.y * 19.0 + p.x * 4.0 + time * 0.18);
+        fold += 0.010 * sin(p.z * 24.0 - p.y * 7.0 - time * 0.23);
         return radius + fold * smoothstep(0.05, 0.75, length(p)) + (broad - 0.5) * 0.03;
       }
 
@@ -144,18 +146,19 @@
           if (distanceAlongRay > 5.2) break;
         }
 
-        float objectDistance = length(screen / vec2(0.78, 0.60));
-        float halo = exp(-pow(objectDistance * 2.45, 2.0)) * 0.095;
+        float objectDistance = length(screen / vec2(0.70, 0.54));
+        float halo = exp(-pow(objectDistance * 2.55, 2.0)) * 0.08;
+        float contactShadow = exp(-pow(length((screen - vec2(0.035, -0.37)) / vec2(0.40, 0.075)), 2.0)) * 0.052;
         vec3 haloColor = vec3(0.32, 0.48, 0.38);
 
         if (hit < 0.5) {
-          gl_FragColor = vec4(haloColor, halo);
+          gl_FragColor = vec4(haloColor * 0.84, max(halo, contactShadow));
           return;
         }
 
         vec3 normal = sceneNormal(point, time);
-        vec3 light = normalize(vec3(-0.42, 0.72, 0.92));
-        vec3 fill = normalize(vec3(0.7, 0.18, -0.82));
+        vec3 light = normalize(vec3(-0.52, 0.78, 0.94));
+        vec3 fill = normalize(vec3(0.68, -0.24, -0.82));
         float diffuse = max(dot(normal, light), 0.0);
         float bounce = max(dot(normal, fill), 0.0);
         float view = max(dot(normal, -ray), 0.0);
@@ -164,21 +167,23 @@
 
         vec3 local = rotateObject(point, time);
         float materialNoise = fbm3(local * 3.0 + vec3(0.0, time * 0.03, 0.0));
-        float tubeAngle = atan(local.z, length(local.xy) - 0.48);
+        float tubeAngle = atan(local.z, length(local.xy) - 0.47);
         float ringAngle = atan(local.y, local.x);
         float contours = 1.0 - smoothstep(0.0, 0.045, abs(fract((tubeAngle / 6.28318 + materialNoise * 0.07 + time * 0.006) * 8.0) - 0.5));
         float fineContours = 1.0 - smoothstep(0.0, 0.03, abs(fract((ringAngle / 6.28318 + materialNoise * 0.045) * 13.0) - 0.5));
+        float innerCavity = smoothstep(0.02, 0.16, 0.47 - length(local.xy));
 
-        vec3 shadowColor = vec3(0.22, 0.29, 0.25);
-        vec3 lightColor = vec3(0.88, 0.91, 0.84);
-        vec3 green = vec3(0.11, 0.38, 0.21);
-        vec3 color = mix(shadowColor, lightColor, 0.12 + diffuse * 0.78 + bounce * 0.12);
+        vec3 shadowColor = vec3(0.18, 0.25, 0.21);
+        vec3 lightColor = vec3(0.90, 0.92, 0.86);
+        vec3 green = vec3(0.10, 0.37, 0.20);
+        vec3 color = mix(shadowColor, lightColor, 0.08 + diffuse * 0.82 + bounce * 0.10);
+        color = mix(color, shadowColor * 0.70, innerCavity * 0.30);
         color = mix(color, green, contours * 0.25);
         color += green * fineContours * 0.11;
-        color += lightColor * specular * 0.42;
-        color += green * rim * 0.22;
+        color += lightColor * specular * 0.46;
+        color += green * rim * 0.24;
 
-        float alpha = 0.36 + diffuse * 0.39 + rim * 0.18;
+        float alpha = 0.30 + diffuse * 0.43 + rim * 0.18;
         alpha = clamp(alpha + contours * 0.10, 0.0, 0.94);
         gl_FragColor = vec4(color, alpha);
       }
