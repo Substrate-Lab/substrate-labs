@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css?v=18" />
+<link rel="stylesheet" href="style.css?v=20" />
 <style>
   /* Team roster — grouped by role. Researchers with profiles link through; others are static rows. */
   #team .group{margin-top:52px}
@@ -64,7 +64,7 @@
     </div>
   </header>
 
-  <!-- ── HERO: a research thesis + a living WebGL field ───────────── -->
+  <!-- ── HERO: a typographic thesis + a living 3D substrate ──────── -->
   <section class="hero" id="top">
     <div class="container hero-stage">
       <div class="hero-kicker">
@@ -72,24 +72,22 @@
         <span class="hero-count">FIELD / 001</span>
       </div>
 
-      <div class="hero-main">
-        <div class="hero-copy">
-          <div class="hero-serial">01 <span>/</span> proposition</div>
-          <h1 class="hero-title">Intelligence<br /><em>has a substrate.</em></h1>
-          <p class="hero-lede">We study the structure of intelligence in machines, in molecules, and in the systems that shape our world.</p>
-          <a class="hero-link" href="#research">Explore the research <span class="arr">&rarr;</span></a>
-        </div>
+      <div class="hero-composition">
+        <h1 class="hero-type" aria-label="Intelligence has a substrate">
+          <span class="type-lockup type-left">intelligence</span>
+          <span class="type-lockup type-center"><span>has</span><span>a</span></span>
+          <span class="type-lockup type-right"><span>substrate<span class="dot">.</span></span></span>
+        </h1>
 
-        <div class="hero-field" aria-label="Interactive WebGL research field">
+        <div class="hero-field" aria-label="Interactive WebGL rendering of a changing substrate">
           <canvas class="field-canvas" id="field-canvas"></canvas>
-          <div class="field-head" aria-hidden="true"><span>SUBSTRATE / LIVE FIELD</span><span>WEBGL</span></div>
-          <div class="field-foot" aria-hidden="true"><span>topology · signals · structure</span><span>move to perturb</span></div>
+          <span class="field-cue" aria-hidden="true">move through the field</span>
         </div>
       </div>
 
       <div class="hero-notes">
-        <p>Research across machines, molecules,<br />and the systems between them.</p>
-        <p>Alignment&nbsp;&nbsp; Interpretability&nbsp;&nbsp; Biology&nbsp;&nbsp; Societal</p>
+        <p>Substrate is an independent research lab<br />studying the structure of intelligence.</p>
+        <p>Machines, molecules, and the systems that shape our world.<br /><a href="#research">Explore the research <span class="arr">&rarr;</span></a></p>
       </div>
     </div>
   </section>
@@ -374,7 +372,7 @@
     </div>
   </footer>
 
-  <script src="/site.js" defer></script>
+  <script src="/site.js?v=20" defer></script>
 
 </body>
 </html>

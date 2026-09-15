@@ -27,9 +27,10 @@
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const gl = canvas.getContext('webgl', {
-      alpha: false,
-      antialias: false,
+      alpha: true,
+      antialias: true,
       depth: false,
+      premultipliedAlpha: false,
       powerPreference: 'low-power',
     });
 
@@ -56,79 +57,137 @@
       uniform vec2 u_pointer;
       varying vec2 v_uv;
 
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+      mat2 rotate2d(float angle) {
+        float s = sin(angle);
+        float c = cos(angle);
+        return mat2(c, -s, s, c);
       }
 
-      float noise(vec2 p) {
-        vec2 i = floor(p);
-        vec2 f = fract(p);
+      float hash(vec3 p) {
+        p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3));
+        p *= 17.0;
+        return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+      }
+
+      float noise3(vec3 p) {
+        vec3 i = floor(p);
+        vec3 f = fract(p);
         f = f * f * (3.0 - 2.0 * f);
         return mix(
-          mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-          mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
-          f.y
+          mix(mix(hash(i), hash(i + vec3(1.0, 0.0, 0.0)), f.x),
+              mix(hash(i + vec3(0.0, 1.0, 0.0)), hash(i + vec3(1.0, 1.0, 0.0)), f.x), f.y),
+          mix(mix(hash(i + vec3(0.0, 0.0, 1.0)), hash(i + vec3(1.0, 0.0, 1.0)), f.x),
+              mix(hash(i + vec3(0.0, 1.0, 1.0)), hash(i + vec3(1.0, 1.0, 1.0)), f.x), f.y), f.z
         );
       }
 
-      float fbm(vec2 p) {
+      float fbm3(vec3 p) {
         float value = 0.0;
         float amplitude = 0.5;
         for (int i = 0; i < 4; i++) {
-          value += amplitude * noise(p);
-          p = p * 2.03 + vec2(13.7, 7.1);
+          value += amplitude * noise3(p);
+          p = p * 2.02 + vec3(11.3, 5.7, 17.1);
           amplitude *= 0.5;
         }
         return value;
       }
 
-      void main() {
-        vec2 uv = v_uv - 0.5;
-        uv.x *= u_resolution.x / u_resolution.y;
+      vec3 rotateObject(vec3 p, float time) {
+        float yaw = 0.16 * sin(time * 0.26) + (u_pointer.x - 0.5) * 0.22;
+        float pitch = 0.10 * cos(time * 0.21) + (u_pointer.y - 0.5) * 0.12;
+        p.xz = rotate2d(yaw) * p.xz;
+        p.xy = rotate2d(pitch) * p.xy;
+        return p;
+      }
 
-        vec2 pointer = u_pointer - 0.5;
-        pointer.x *= u_resolution.x / u_resolution.y;
-        float pointerPull = exp(-length(uv - pointer * vec2(1.15, 0.78)) * 4.3);
-        vec2 p = uv + pointerPull * pointer * 0.105;
+      float scene(vec3 point, float time) {
+        vec3 p = rotateObject(point, time);
+        vec2 tube = vec2(length(p.xy) - 0.48, p.z);
+        float radius = length(tube) - 0.13;
+        float broad = fbm3(p * 2.8 + vec3(time * 0.045, -time * 0.03, time * 0.035));
+        float fold = 0.024 * sin(p.y * 19.0 + p.x * 4.0 + time * 0.18);
+        fold += 0.018 * sin(p.z * 24.0 - p.y * 7.0 - time * 0.23);
+        return radius + fold * smoothstep(0.05, 0.75, length(p)) + (broad - 0.5) * 0.03;
+      }
+
+      vec3 sceneNormal(vec3 point, float time) {
+        vec2 e = vec2(0.0018, 0.0);
+        return normalize(vec3(
+          scene(point + e.xyy, time) - scene(point - e.xyy, time),
+          scene(point + e.yxy, time) - scene(point - e.yxy, time),
+          scene(point + e.yyx, time) - scene(point - e.yyx, time)
+        ));
+      }
+
+      void main() {
+        vec2 screen = v_uv - 0.5;
+        float aspect = u_resolution.x / u_resolution.y;
+        screen.x *= aspect;
 
         float time = u_time;
-        float broadNoise = fbm(p * 2.35 + vec2(time * 0.06, -time * 0.035));
-        float fineNoise = fbm(p * 5.4 - vec2(time * 0.025, time * 0.04));
-        float surface = p.y
-          + 0.12 * sin(p.x * 3.0 + time * 0.28)
-          + 0.045 * sin(p.x * 9.0 - time * 0.22)
-          + 0.12 * (broadNoise - 0.5)
-          + 0.035 * (fineNoise - 0.5);
+        vec3 camera = vec3(0.0, 0.0, 3.72);
+        vec3 ray = normalize(vec3(screen * 1.04, -2.6));
+        float cameraTilt = (u_pointer.x - 0.5) * 0.10;
+        ray.xz = rotate2d(cameraTilt) * ray.xz;
 
-        float ellipse = length(p / vec2(1.12, 0.7));
-        float mask = 1.0 - smoothstep(0.66, 1.02, ellipse);
-        float contourA = 1.0 - smoothstep(0.0, 0.035, abs(fract(surface * 19.0) - 0.5));
-        float contourB = 1.0 - smoothstep(0.0, 0.024, abs(fract((surface + broadNoise * 0.08) * 38.0) - 0.5));
-        float tracer = exp(-abs(surface + 0.06 * sin(p.x * 4.0 + time * 0.22) - 0.045) * 48.0);
-        float core = exp(-length(p * vec2(0.72, 1.22)) * 2.8);
-        float pointerGlow = exp(-length(uv - pointer * vec2(1.15, 0.78)) * 5.0);
+        float distanceAlongRay = 0.0;
+        vec3 point = camera;
+        float hit = 0.0;
+        for (int step = 0; step < 76; step++) {
+          point = camera + ray * distanceAlongRay;
+          float distanceToSurface = scene(point, time);
+          if (distanceToSurface < 0.0015) {
+            hit = 1.0;
+            break;
+          }
+          distanceAlongRay += max(distanceToSurface * 0.72, 0.003);
+          if (distanceAlongRay > 5.2) break;
+        }
 
-        vec3 deep = vec3(0.035, 0.075, 0.057);
-        vec3 surfaceColor = vec3(0.075, 0.17, 0.12);
-        vec3 green = vec3(0.24, 0.72, 0.44);
-        vec3 pale = vec3(0.72, 0.87, 0.69);
+        float objectDistance = length(screen / vec2(0.78, 0.60));
+        float halo = exp(-pow(objectDistance * 2.45, 2.0)) * 0.095;
+        vec3 haloColor = vec3(0.32, 0.48, 0.38);
 
-        vec3 color = mix(deep, surfaceColor, mask * (0.35 + broadNoise * 0.42));
-        color += green * contourA * mask * 0.33;
-        color += pale * contourB * mask * 0.075;
-        color += green * tracer * mask * 0.58;
-        color += green * core * 0.055;
-        color += pale * pointerGlow * 0.035;
+        if (hit < 0.5) {
+          gl_FragColor = vec4(haloColor, halo);
+          return;
+        }
 
-        float vignette = 1.0 - smoothstep(0.62, 1.28, length(uv * vec2(0.76, 0.82)));
-        color *= 0.76 + vignette * 0.24;
-        gl_FragColor = vec4(color, 1.0);
+        vec3 normal = sceneNormal(point, time);
+        vec3 light = normalize(vec3(-0.42, 0.72, 0.92));
+        vec3 fill = normalize(vec3(0.7, 0.18, -0.82));
+        float diffuse = max(dot(normal, light), 0.0);
+        float bounce = max(dot(normal, fill), 0.0);
+        float view = max(dot(normal, -ray), 0.0);
+        float rim = pow(1.0 - view, 2.1);
+        float specular = pow(max(dot(reflect(-light, normal), -ray), 0.0), 28.0);
+
+        vec3 local = rotateObject(point, time);
+        float materialNoise = fbm3(local * 3.0 + vec3(0.0, time * 0.03, 0.0));
+        float tubeAngle = atan(local.z, length(local.xy) - 0.48);
+        float ringAngle = atan(local.y, local.x);
+        float contours = 1.0 - smoothstep(0.0, 0.045, abs(fract((tubeAngle / 6.28318 + materialNoise * 0.07 + time * 0.006) * 8.0) - 0.5));
+        float fineContours = 1.0 - smoothstep(0.0, 0.03, abs(fract((ringAngle / 6.28318 + materialNoise * 0.045) * 13.0) - 0.5));
+
+        vec3 shadowColor = vec3(0.22, 0.29, 0.25);
+        vec3 lightColor = vec3(0.88, 0.91, 0.84);
+        vec3 green = vec3(0.11, 0.38, 0.21);
+        vec3 color = mix(shadowColor, lightColor, 0.12 + diffuse * 0.78 + bounce * 0.12);
+        color = mix(color, green, contours * 0.25);
+        color += green * fineContours * 0.11;
+        color += lightColor * specular * 0.42;
+        color += green * rim * 0.22;
+
+        float alpha = 0.36 + diffuse * 0.39 + rim * 0.18;
+        alpha = clamp(alpha + contours * 0.10, 0.0, 0.94);
+        gl_FragColor = vec4(color, alpha);
       }
     `;
 
     const program = createProgram(gl, vertexSource, fragmentSource);
     if (!program) {
-      initFieldFallback(canvas, reduceMotion);
+      canvas.dataset.ready = 'true';
+      canvas.dataset.renderer = 'webgl-error';
       return;
     }
 
@@ -136,6 +195,8 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     gl.useProgram(program);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     const position = gl.getAttribLocation(program, 'a_position');
     const timeUniform = gl.getUniformLocation(program, 'u_time');
@@ -154,7 +215,7 @@
     let targetY = 0.5;
     let startedAt = 0;
     canvas.dataset.ready = 'true';
-    canvas.dataset.renderer = 'webgl';
+    canvas.dataset.renderer = 'webgl-raymarch';
 
     function resize() {
       const bounds = canvas.getBoundingClientRect();
@@ -173,6 +234,8 @@
       const elapsed = reduceMotion.matches ? 0 : (now - startedAt) * 0.001;
       pointerX += (targetX - pointerX) * 0.075;
       pointerY += (targetY - pointerY) * 0.075;
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform1f(timeUniform, elapsed);
       gl.uniform2f(pointerUniform, reduceMotion.matches ? 0.5 : pointerX, reduceMotion.matches ? 0.5 : pointerY);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -259,26 +322,29 @@
 
     function draw(now) {
       const time = reduceMotion.matches ? 0 : now * 0.00022;
-      ctx.fillStyle = '#102019';
+      ctx.clearRect(0, 0, width, height);
+      const glow = ctx.createRadialGradient(width * 0.5, height * 0.5, 8, width * 0.5, height * 0.5, Math.min(width, height) * 0.45);
+      glow.addColorStop(0, 'rgba(47, 77, 61, .17)');
+      glow.addColorStop(.72, 'rgba(47, 77, 61, .035)');
+      glow.addColorStop(1, 'rgba(47, 77, 61, 0)');
+      ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
       ctx.save();
       ctx.translate(width * 0.5, height * 0.52);
-      ctx.rotate(Math.sin(time * 0.32) * 0.05);
+      ctx.rotate(Math.sin(time * 0.3) * 0.05);
       ctx.beginPath();
-      ctx.ellipse(0, 0, width * 0.42, height * 0.3, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, width * 0.38, height * 0.28, 0, 0, Math.PI * 2);
       ctx.clip();
-      for (let row = 0; row < 27; row += 1) {
+      for (let row = 0; row < 25; row += 1) {
         ctx.beginPath();
-        const base = -height * 0.3 + row * height * 0.024;
-        for (let x = -width * 0.55; x <= width * 0.55; x += 7) {
-          const y = base
-            + Math.sin(x * 0.011 + time + row * 0.32) * 7
-            + Math.sin(x * 0.004 - time * 1.25 + row) * 10;
-          if (x === -width * 0.55) ctx.moveTo(x, y);
+        const base = -height * 0.28 + row * height * 0.023;
+        for (let x = -width * 0.52; x <= width * 0.52; x += 7) {
+          const y = base + Math.sin(x * 0.012 + time + row * 0.31) * 8 + Math.sin(x * 0.004 - time * 1.2 + row) * 11;
+          if (x === -width * 0.52) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-        ctx.strokeStyle = row === 13 ? 'rgba(93, 196, 125, .48)' : 'rgba(175, 220, 179, .15)';
-        ctx.lineWidth = row === 13 ? 1.2 : 0.75;
+        ctx.strokeStyle = row === 12 ? 'rgba(40, 125, 78, .48)' : 'rgba(39, 71, 52, .13)';
+        ctx.lineWidth = row === 12 ? 1.2 : 0.75;
         ctx.stroke();
       }
       ctx.restore();
